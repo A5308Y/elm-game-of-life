@@ -75,13 +75,19 @@ positionsToUpdate : Model -> List Position
 positionsToUpdate model =
     model
         |> List.foldr collectNeighbours model
+        |> unique
+
+
+unique : List comparable -> List comparable
+unique list =
+    list
         |> Set.fromList
         |> Set.toList
 
 
 collectNeighbours : Position -> List Position -> List Position
 collectNeighbours position collectedNeighbours =
-    possibleNeighbours position ++ collectedNeighbours
+    (possibleNeighbours position) ++ collectedNeighbours
 
 
 updatePosition : Model -> Position -> Model -> Model
